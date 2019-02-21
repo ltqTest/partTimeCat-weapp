@@ -1,13 +1,16 @@
 {
-  "description": "parttimecat weapp project",
-  "setting": {
-    "urlCheck": true,
-    "es6": false,
-    "postcss": false,
-    "minified": false
-  },
-  "compileType": "miniprogram",
-  "appid": "wx10cbe71d2d48a928",
-  "projectname": "parttimecat-weapp",
-  "miniprogramRoot": "./dist"
+	"description": "parttimecat weapp project",
+	"setting": {
+		"urlCheck": false,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"compileType": "miniprogram",
+	"appid": "wx10cbe71d2d48a928",
+	"projectname": "parttimecat-weapp",
+	"miniprogramRoot": "dist/",
+	"condition": {}
 }
