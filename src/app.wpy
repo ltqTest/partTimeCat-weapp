@@ -1,28 +1,35 @@
 <style lang="less">
     @import 'style/weui.less';
-    page{
+
+    page {
         background-color: #F8F8F8;
         font-size: 16px;
     }
+
     .page__hd {
         padding: 40px;
     }
+
     .page__bd {
         padding-bottom: 40px;
     }
+
     .page__bd_spacing {
         padding-left: 15px;
         padding-right: 15px;
     }
-    .page__ft{
+
+    .page__ft {
         padding-bottom: 10px;
         text-align: center;
     }
+
     .page__title {
         text-align: left;
         font-size: 20px;
         font-weight: 400;
     }
+
     .page__desc {
         margin-top: 5px;
         color: #888888;
@@ -35,40 +42,44 @@
     import wepy from 'wepy'
 
     export default class extends wepy.app {
-        config = {
-            pages: [
-                'pages/index',
-                'pages/user'
-            ],
-            window: {
-                backgroundTextStyle: 'light',
-                navigationBarBackgroundColor: '#fff',
-                navigationBarTitleText: 'LaraBBS',
-                navigationBarTextStyle: 'black'
-            },
-            tabBar: {
-                list: [{
-                    pagePath: 'pages/index',
-                    text: '首页',
-                    iconPath: 'images/index.png',
-                    selectedIconPath: 'images/index_selected.png'
-                }, {
-                    pagePath: 'pages/user',
-                    text: '我的',
-                    iconPath: 'images/user.png',
-                    selectedIconPath: 'images/user_selected.png'
-                }],
-                color: '#707070',
-                selectedColor: '#00b5ad'
-            }
+      config = {
+        pages: [
+          'pages/index',
+          'pages/user'
+        ],
+        window: {
+          backgroundTextStyle: 'light',
+          navigationBarBackgroundColor: '#fff',
+          navigationBarTitleText: 'LaraBBS',
+          navigationBarTextStyle: 'black'
+        },
+        tabBar: {
+          list: [{
+            pagePath: 'pages/index',
+            text: '首页',
+            iconPath: 'images/index.png',
+            selectedIconPath: 'images/index_selected.png'
+          }, {
+            pagePath: 'pages/user',
+            text: '我的',
+            iconPath: 'images/user.png',
+            selectedIconPath: 'images/user_selected.png'
+          }],
+          color: '#707070',
+          selectedColor: '#00b5ad'
         }
+      }
 
-        constructor () {
-            super()
-            this.use('requestfix')
-        }
+      constructor () {
+        super()
+        this.use('requestfix')
+        this.use('promisify')
+      }
 
-        onLaunch() {
-        }
+      onLaunch() {
+        wepy.login().then(res => {
+          console.log('login: ', res)
+        })
+      }
     }
 </script>
