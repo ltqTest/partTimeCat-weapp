@@ -46,11 +46,11 @@
     export default class extends wepy.app {
       config = {
         pages: [
-          'pages/index',
-          'pages/users/me',
-          'pages/users/edit',
-          'pages/auth/login',
-          'pages/auth/register'
+            'pages/topics/index',
+            'pages/users/me',
+            'pages/users/edit',
+            'pages/auth/login',
+            'pages/auth/register'
         ],
         window: {
           backgroundTextStyle: 'light',
@@ -60,8 +60,8 @@
         },
         tabBar: {
           list: [{
-            pagePath: 'pages/index',
-            text: '首页',
+              pagePath: 'pages/topics/index',
+              text: '首页',
             iconPath: 'images/index.png',
             selectedIconPath: 'images/index_selected.png'
           }, {
