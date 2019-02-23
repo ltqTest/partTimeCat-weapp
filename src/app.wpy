@@ -41,6 +41,8 @@
 <script>
     import wepy from 'wepy'
     import 'wepy-async-function'
+    import api from '@/utils/api'
+
     export default class extends wepy.app {
       config = {
         pages: [
@@ -72,13 +74,56 @@
         }
       }
 
-      constructor () {
+      constructor() {
         super()
         this.use('requestfix')
         this.use('promisify')
       }
 
       onLaunch() {
+      }
+        /**
+         * 获取当前登录用户信息
+         * checkLogin()判断用户是否登录，如果未登录则返回 null；
+         * 如果已经登录则先从缓存中获取用户信息并返回；
+         * 如果缓存中没有用户数据，则请求 获取登录用户信息 接口。
+         */
+      async getCurrentUser() {
+            // 如果用户未登录
+        if (!this.checkLogin()) {
+          return null
+        }
+
+            // 从缓存中获取用户信息
+        let user = wepy.getStorageSync('user')
+
+        try {
+                // 登录了但是缓存中没有，请求接口获取
+          if (!user) {
+            let userResponse = await api.authRequest('user')
+                    // 状态码为 200 表示请求成功
+            if (userResponse.statusCode === 200) {
+              user = userResponse.data
+              wepy.setStorageSync('user', user)
+            }
+          }
+        } catch (err) {
+          console.log(err)
+          wepy.showModal({
+            title: '提示',
+            content: '服务器错误，请联系管理员'
+          })
+        }
+
+        return user
+      }
+
+        /**
+         * 该方法只判断缓存中是否存在 access_token，存在则说明用户已经登录过了，返回 true，否则返回 false
+         * @returns {boolean}
+         */
+      checkLogin() {
+        return (wepy.getStorageSync('access_token') !== '')
       }
     }
 </script>
