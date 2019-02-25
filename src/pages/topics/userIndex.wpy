@@ -34,7 +34,7 @@
         await this.$invoke('topiclist', 'reload')
         wepy.stopPullDownRefresh()
       }
-        // 上拉加载更多
+        // 触底加载更多
       onReachBottom () {
             // 调用组件 loadMore 方法
         this.$invoke('topiclist', 'loadMore')

@@ -71,7 +71,7 @@
             </view>
         </view>
         <view class="page__bd">
-            <!-- 使用 topiclist，传入 requestData 数据 -->
+            <!-- 利用组件 topiclist[@/components/topicList]，传入 requestData 数据 -->
             <topiclist :syncData.sync="requestData"></topiclist>
         </view>
     </view>
@@ -84,24 +84,25 @@
     export default class TopicIndex extends wepy.page {
       config = {
         enablePullDownRefresh: true
-      }
+      };
       data = {
-        topics: [],
-        categories: [],
-        categoryOpen: false,
-        currentCategory: {},
-        requestData: {}
-      }
-        // 使用 topicList 组件
+        topics: [], // 话题
+        categories: [], // 分类
+        categoryOpen: false, // 分类下拉框默认关闭
+        currentCategory: {}, // 当前选择分类
+        requestData: {} // 分类对应的数据列表
+      };
+      // 使用 topicList 组件
       components = {
         topiclist: topicList
-      }
+      };
+      // 计算属性[计算当前所选分类id]
       computed = {
             // 当前选中的分类id
         currentCategoryId () {
           return this.currentCategory.id || 0
         }
-      }
+      };
         // 获取分类数据
       async getCategories() {
         let categories = wepy.getStorageSync('categories')
@@ -111,7 +112,7 @@
             let categoriesResponse = await api.request('categories')
             if (categoriesResponse.statusCode === 200) {
               categories = categoriesResponse.data.data
-                        // 缓存到 sotrage 中
+                    // 缓存到 sotrage 中
               wepy.setStorageSync('categories', categories)
             }
           } catch (err) {
@@ -125,17 +126,20 @@
         this.categories = categories
         this.$apply()
       }
-      onLoad() {
-            // 获取分类数据
-        this.getCategories()
-            // 调用组件的 reload 方法
-        this.$invoke('topiclist', 'reload')
-      }
+
+      // 下拉刷新
       async onPullDownRefresh() {
             // 调用组件的 reload 方法
         await this.$invoke('topiclist', 'reload')
         wepy.stopPullDownRefresh()
+  }
+      onLoad() {
+            // 获取分类数据
+        this.getCategories()
+        // 调用组件topicList的 reload 方法
+        this.$invoke('topiclist', 'reload')
       }
+        // 触底加载更多
       onReachBottom () {
             // 调用组件的 loadMore 方法
         this.$invoke('topiclist', 'loadMore')
@@ -152,7 +156,7 @@
           this.$apply()
           this.requestData.category_id = this.currentCategoryId
 
-                // 调用组件的 reload 方法
+            // 调用组件的 reload 方法
           this.$invoke('topiclist', 'reload')
         }
       }
