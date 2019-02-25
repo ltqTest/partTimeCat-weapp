@@ -84,6 +84,9 @@
         this.use('promisify')
       }
 
+        globalData = {
+            refreshPages: []
+        }
       onLaunch() {
       }
         /**
@@ -123,11 +126,26 @@
       }
 
         /**
-         * 该方法只判断缓存中是否存在 access_token，存在则说明用户已经登录过了，返回 true，否则返回 false
+         * 该方法判断缓存中是否存在 access_token，存在则说明用户已经登录过了，返回 true，否则返回 false
          * @returns {boolean}
          */
       checkLogin() {
         return (wepy.getStorageSync('access_token') !== '')
       }
+
+        /**
+         * 检测传入的页面路由是否在 refreshPages 数组中
+         * @param 页面名称
+         * @param callback 如果存在，则将路由移除 refreshPages，并执行传入的回调方法
+         */
+        checkRefreshPages (route, callback) {
+            let refreshIndex = this.globalData.refreshPages.indexOf(route)
+            if (refreshIndex === -1) {
+                return
+            }
+
+            this.globalData.refreshPages.splice(refreshIndex, 1)
+            callback && callback()
+        }
     }
 </script>
