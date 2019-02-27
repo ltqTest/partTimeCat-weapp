@@ -53,7 +53,8 @@
           'pages/users/edit',
           'pages/users/show',
           'pages/auth/login',
-          'pages/auth/register'
+          'pages/auth/register',
+          'pages/replies/index'
         ],
         window: {
           backgroundTextStyle: 'light',
@@ -84,9 +85,9 @@
         this.use('promisify')
       }
 
-        globalData = {
-            refreshPages: []
-        }
+      globalData = {
+        refreshPages: []
+      }
       onLaunch() {
       }
         /**
@@ -138,14 +139,14 @@
          * @param 页面名称
          * @param callback 如果存在，则将路由移除 refreshPages，并执行传入的回调方法
          */
-        checkRefreshPages (route, callback) {
-            let refreshIndex = this.globalData.refreshPages.indexOf(route)
-            if (refreshIndex === -1) {
-                return
-            }
-
-            this.globalData.refreshPages.splice(refreshIndex, 1)
-            callback && callback()
+      checkRefreshPages (route, callback) {
+        let refreshIndex = this.globalData.refreshPages.indexOf(route)
+        if (refreshIndex === -1) {
+          return
         }
+
+        this.globalData.refreshPages.splice(refreshIndex, 1)
+        callback && callback()
+      }
     }
 </script>

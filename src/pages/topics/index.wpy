@@ -139,11 +139,11 @@
         // 调用组件topicList的 reload 方法
         this.$invoke('topiclist', 'reload')
       }
-        onShow() {
-            this.$parent.checkRefreshPages(this.getCurrentPages().pop().route, () => {
-                this.$invoke('topiclist', 'reload')
-            })
-        }
+      onShow() {
+        this.$parent.checkRefreshPages(this.getCurrentPages().pop().route, () => {
+          this.$invoke('topiclist', 'reload')
+        })
+      }
         // 触底加载更多
       onReachBottom () {
             // 调用组件的 loadMore 方法
