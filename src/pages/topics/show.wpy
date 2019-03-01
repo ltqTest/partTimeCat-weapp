@@ -46,9 +46,12 @@
             </view>
             <view class="weui-article">
                 <rich-text nodes="{{ topic.body }}" bindtap="tap"></rich-text>
-                <button wx:if="{{ canDelete }}" @tap="deleteTopic" class="weui-btn mini-btn" type="default" size="mini">
-                    删除
-                </button>
+                <!--<button wx:if="{{ canDelete }}" @tap="deleteTopic" class="weui-btn mini-btn" type="default" size="mini">-->
+                    <!--删除-->
+                <!--</button>-->
+            </view>
+            <view class="page__bd page__bd_spacing logout">
+                <button class="weui-btn" type="primary">申请</button>
             </view>
             <!-- 话题回复 -->
             <view class="weui-panel weui-panel_access" wx:if="{{ topic.reply_count }}">
@@ -73,12 +76,12 @@
                     </repeat>
                 </view>
                 <view class="weui-panel__ft">
-                    <navigator class="weui-cell weui-cell_access weui-cell_link" url="/pages/replies/index?topic_id={{ topic.id }}">
+                    <navigator class="weui-cell weui-cell_access weui-cell_link"
+                               url="/pages/replies/index?topic_id={{ topic.id }}">
                         <view class="weui-cell__bd">查看全部回复</view>
                         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                     </navigator>
                 </view>
-            </view>
             </view>
         </view>
     </view>
@@ -141,7 +144,7 @@
       async onLoad(options) {
         await
                 this.getTopic(options.id)
-        // 获取当前登录用户
+            // 获取当前登录用户
         this.user = await
                 this.$parent.getCurrentUser()
         this.$apply()
@@ -168,7 +171,7 @@
             cancelText: '取消'
           })
 
-            // 用户点击取消后返回
+                // 用户点击取消后返回
           if (!res.confirm) {
             return
           }
@@ -179,16 +182,16 @@
             method: 'DELETE'
           })
 
-            // 删除成功，给出提示
+                // 删除成功，给出提示
           if (deleteResponse.statusCode === 204) {
             wepy.showToast({
               title: '删除成功',
               icon: 'success'
             })
 
-                // 设置全局变量，控制列表刷新
+                    // 设置全局变量，控制列表刷新
             let pages = this.getCurrentPages()
-                // 如果有上一页
+                    // 如果有上一页
             if (pages.length > 1) {
                         // 检查所有已经打开的页面，如果是话题列表页面就记录下来
               let refreshPages = []
