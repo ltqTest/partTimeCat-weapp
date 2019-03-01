@@ -141,7 +141,9 @@
       }
       onShow() {
         this.$parent.checkRefreshPages(this.getCurrentPages().pop().route, () => {
-          this.$invoke('topiclist', 'reload')
+          this.noMoreData = false
+          this.page = 1
+          this.getReplies(true)
         })
       }
         // 触底加载更多
