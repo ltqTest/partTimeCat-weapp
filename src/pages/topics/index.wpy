@@ -80,6 +80,7 @@
     import wepy from 'wepy'
     import api from '@/utils/api'
     import topicList from '@/components/topicList'
+    import unreadCount from '@/mixins/unreadCount'
 
     export default class TopicIndex extends wepy.page {
       config = {
@@ -92,6 +93,7 @@
         currentCategory: {}, // 当前选择分类
         requestData: {} // 分类对应的数据列表
       };
+      mixins = [unreadCount]
       // 使用 topicList 组件
       components = {
         topiclist: topicList
