@@ -57,8 +57,8 @@
           'pages/replies/index',
           'pages/replies/userIndex',
           'pages/replies/create',
-          'page/applies/index',
-          'pages/notifications/index'
+          'pages/notifications/index',
+          'pages/applies/index'
         ],
         window: {
           backgroundTextStyle: 'light',

@@ -54,13 +54,13 @@
             </view>
             <view class="weui-article">
                 <rich-text nodes="{{ topic.body }}" bindtap="tap"></rich-text>
-                <!--<button wx:if="{{ canDelete }}" @tap="deleteTopic" class="weui-btn mini-btn" type="default" size="mini">-->
-                    <!--删除-->
-                <!--</button>-->
+                <button wx:if="{{ canDelete }}" @tap="deleteTopic" class="weui-btn mini-btn" type="default" size="mini">
+                    删除
+                </button>
             </view>
-            <view class="page__bd page__bd_spacing logout">
-                <button class="weui-btn" type="primary">申请</button>
-            </view>
+            <navigator url="/pages/applies/index?topic_id={{ topic.id }}">
+                <button class="weui-btn" type="button">申请</button>
+            </navigator>
             <!-- 话题回复 -->
             <view class="weui-panel weui-panel_access" wx:if="{{ topic.reply_count }}">
                 <view class="weui-panel__hd">回复 ({{ topic.reply_count }})</view>
